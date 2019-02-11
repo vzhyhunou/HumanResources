@@ -85,4 +85,21 @@ You can also execute both commands together:
     LEFT JOIN emp AS e ON (d.dept_id = e.dept_id)
     GROUP BY d.dept_id, d.dept_name
     ORDER BY d.dept_name
+
+    SELECT d.dept_id, d.dept_name
+      FROM dept d
+     WHERE d.dep_id 
+       IN (SELECT d2.dept_id
+             FROM  dept AS d2
+           LEFT JOIN emp AS e ON (d2.dept_id = e.dept_id)
+           WHERE e.salary > 1000)
+           
+   SELECT e.emp_id, e.firstname, e.salary
+   FROM  emp AS e
+   WHERE e.salary > (select AVG(salary) from emp
+     where e.dept_id = dept_id)        
+           
+           
+        
+    
     
