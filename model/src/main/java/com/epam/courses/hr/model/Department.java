@@ -30,32 +30,52 @@ public class Department {
     }
 
     /**
+     * Sets departmentId.
      *
-     *
-     * @param departmentId
+     * @param departmentId.
      */
-    public void setDepartmentId(final Integer departmentId) {
+    public final void setDepartmentId(final Integer departmentId) {
         this.departmentId = departmentId;
     }
 
-    public String getDepartmentName() {
+    /**
+     * Returns department name.
+     *
+     * @return departmentName.
+     */
+    public final String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
+    /**
+     * Sets department name.
+     *
+     * @param departmentName.
+     */
+    public final void setDepartmentName(final String departmentName) {
         this.departmentName = departmentName;
     }
 
-    public String getDepartmentDescription() {
+    /**
+     * Returns department description.
+     *
+     * @return departmentDescription.
+     */
+    public final String getDepartmentDescription() {
         return departmentDescription;
     }
 
-    public void setDepartmentDescription(String departmentDescription) {
+    /**
+     * Sets department description.
+     *
+     * @param departmentDescription.
+     */
+    public final void setDepartmentDescription(final String departmentDescription) {
         this.departmentDescription = departmentDescription;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Department{"
                 + "departmentId=" + departmentId
                 + ", departmentName='" + departmentName + '\''

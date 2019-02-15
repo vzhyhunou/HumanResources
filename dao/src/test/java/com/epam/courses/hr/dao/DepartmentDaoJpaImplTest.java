@@ -12,21 +12,41 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:test-db.xml", "classpath:test-dao.xml"})
 @Rollback
 @Transactional
-public class DepartmentDaoImplTest {
+class DepartmentDaoJpaImplTest {
 
     @Autowired
     DepartmentDao departmentDao;
 
     @Test
-    public void getDepartments() {
+    public void findAll() {
         List<Department> departments = departmentDao.findAll().collect(Collectors.toList());
         assertFalse(departments.isEmpty());
     }
 
+    @Test
+    void findById() {
+        Department department = departmentDao.findById(1).get();
+        assertNotNull(department);
+        assertTrue(department.getDepartmentId().equals(1));
+        assertEquals("DEV", department.getDepartmentName());
+        assertEquals("Development Department", department.getDepartmentDescription());
+    }
+
+    @Test
+    void create() {
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void delete() {
+    }
 }
