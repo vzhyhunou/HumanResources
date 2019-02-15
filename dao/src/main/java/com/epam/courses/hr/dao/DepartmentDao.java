@@ -11,4 +11,6 @@ public interface DepartmentDao {
 
     Optional<Department> findById(Integer departmentId);
 
+    Optional<Department> add(Department department);
+
 }
