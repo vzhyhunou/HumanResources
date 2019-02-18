@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +21,11 @@ public class DepartmentDaoJpaImpl implements DepartmentDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJpaImpl.class);
 
-    private static final String SELECT_ALL="select departmentId, departmentName, departmentDescription from department";
+    private static final String SELECT_ALL = "select departmentId, departmentName, departmentDescription from department";
     private static final String FIND_BY_ID = "select departmentId, departmentName, departmentDescription from department where departmentId = :departmentId";
+    private static final String CHECK_COUNT_NAME = "select count(departmentId) from department where lower(departmentName) = lower(:departmentName)";
+    private static final String INSERT = "insert into department (departmentName, departmentDescription) values (:departmentName, :departmentDescription)";
+    private static final String DELETE = "delete from department where departmentId = :departmentId";
     private static final String DEPARTMENT_ID = "departmentId";
     private static final String DEPARTMENT_NAME = "departmentName";
     private static final String DEPARTMENT_DESCRIPTION = "departmentDescription";
@@ -49,7 +54,32 @@ public class DepartmentDaoJpaImpl implements DepartmentDao {
 
     @Override
     public Optional<Department> add(Department department) {
-        return Optional.empty();
+        LOGGER.debug("add({})", department);
+        return Optional.of(department)
+                .filter(this::isNameUnique)
+                .map(this::insertDepartment)
+                .orElseThrow(() -> new IllegalArgumentException("Department with the same name already exsists in DB."));
+    }
+
+    private boolean isNameUnique(Department department) {
+        return namedParameterJdbcTemplate
+                .queryForObject(CHECK_COUNT_NAME,
+                        new MapSqlParameterSource(DEPARTMENT_NAME,
+                                department.getDepartmentName()),
+                        Integer.class) == 0;
+    }
+
+    private Optional<Department> insertDepartment(Department department) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue(DEPARTMENT_NAME, department.getDepartmentName());
+        mapSqlParameterSource.addValue(DEPARTMENT_DESCRIPTION, department.getDepartmentDescription());
+
+        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        int result = namedParameterJdbcTemplate.update(INSERT, mapSqlParameterSource, generatedKeyHolder);
+        LOGGER.debug("add( result update = {}, keyholder = {})", result, generatedKeyHolder.getKey().intValue());
+
+        department.setDepartmentId(generatedKeyHolder.getKey().intValue());
+        return Optional.of(department);
     }
 
     private class DepartmentRowMapper implements RowMapper<Department> {
@@ -64,4 +94,15 @@ public class DepartmentDaoJpaImpl implements DepartmentDao {
         }
     }
 
+    @Override
+    public Optional<Department> update(Department department) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void delete(int departmentId) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue(DEPARTMENT_ID, departmentId);
+        namedParameterJdbcTemplate.update(DELETE, mapSqlParameterSource);
+    }
 }
