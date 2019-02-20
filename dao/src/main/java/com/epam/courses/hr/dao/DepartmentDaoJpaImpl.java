@@ -63,6 +63,14 @@ public class DepartmentDaoJpaImpl implements DepartmentDao {
                 .orElseThrow(() -> new IllegalArgumentException("Department with the same name already exsists in DB."));
     }
 
+    @Override
+    public Optional<Department> addDepartment(Department department) {
+        LOGGER.debug("add({})", department);
+        return Optional.of(department)
+                .map(this::insertDepartment)
+                .orElseThrow(() -> new IllegalArgumentException("Department with the same name already exsists in DB."));
+    }
+
     private boolean isNameUnique(Department department) {
         return namedParameterJdbcTemplate.queryForObject(CHECK_COUNT_NAME,
                 new MapSqlParameterSource(DEPARTMENT_NAME, department.getDepartmentName()),

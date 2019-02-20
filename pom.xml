@@ -13,6 +13,7 @@
         <module>model</module>
         <module>dao</module>
         <module>test-db</module>
+        <module>service</module>
     </modules>
 
     <distributionManagement>
@@ -97,6 +98,12 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.vertion}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
