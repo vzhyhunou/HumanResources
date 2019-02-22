@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath:test-dao.xml"})
 @Transactional
 @Rollback
-class DepartmentDaoJpaImplTest {
+class DepartmentDaoJdbcImplTest {
 
     private static final String DEVELOPMENT_DEPARTMENT = "Development Department";
     private static final String DEV = "DEV";

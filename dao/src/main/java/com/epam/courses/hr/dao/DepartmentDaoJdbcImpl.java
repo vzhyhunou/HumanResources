@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class DepartmentDaoJpaImpl implements DepartmentDao {
+public class DepartmentDaoJdbcImpl implements DepartmentDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJpaImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoJdbcImpl.class);
 
     private static final String SELECT_ALL = "select departmentId, departmentName, departmentDescription from department";
     private static final String FIND_BY_ID = "select departmentId, departmentName, departmentDescription from department where departmentId = :departmentId";
@@ -34,7 +34,7 @@ public class DepartmentDaoJpaImpl implements DepartmentDao {
 
     final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public DepartmentDaoJpaImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public DepartmentDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
