@@ -1,5 +1,8 @@
 package com.epam.courses.hr.stub;
 
+/**
+ * Department Stub.
+ */
 public class DepartmentStub {
 
     private Integer id;

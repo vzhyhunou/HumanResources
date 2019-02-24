@@ -1,2 +1,4 @@
-// DAO tests
+/**
+ * DAO tests.
+ */
 package com.epam.courses.hr.dao;
