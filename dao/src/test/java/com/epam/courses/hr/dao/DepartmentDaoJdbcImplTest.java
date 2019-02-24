@@ -1,5 +1,6 @@
 package com.epam.courses.hr.dao;
 
+import com.epam.courses.hr.dto.DepartmentStub;
 import com.epam.courses.hr.model.Department;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath:test-dao.xml"})
@@ -40,6 +40,13 @@ class DepartmentDaoJdbcImplTest {
         assertNotNull(departments);
     }
 
+    @Test
+    void findAllStubs() {
+        Stream<DepartmentStub>dtos = departmentDao.findAllStubs();
+        assertNotNull(dtos);
+        assertTrue(dtos.count() > 0);
+    }
+    
     @Test
     void findAllCheckCount() {
         Stream<Department> departments = departmentDao.findAll();

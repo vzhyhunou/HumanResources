@@ -1,5 +1,6 @@
 package com.epam.courses.hr.dao;
 
+import com.epam.courses.hr.dto.DepartmentStub;
 import com.epam.courses.hr.model.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,11 @@ public class DepartmentDaoJdbcImpl implements DepartmentDao {
     private static final String DEPARTMENT_ID = "departmentId";
     private static final String DEPARTMENT_NAME = "departmentName";
     private static final String DEPARTMENT_DESCRIPTION = "departmentDescription";
+    public static final String SELECT_ALL_STUBS = "SELECT d.departmentId, d.departmentName, IFNULL (avg(e.salary),0) AS AvgSalary" +
+            " FROM department d " +
+            " LEFT JOIN employee e ON (d.departmentId = e.departmentId)" +
+            " GROUP BY d.departmentId, d.departmentName";
+    public static final String AVG_SALARY = "AvgSalary";
 
     final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -42,6 +48,19 @@ public class DepartmentDaoJdbcImpl implements DepartmentDao {
     public Stream<Department> findAll() {
         LOGGER.debug("findAll()");
         List<Department> departmentList = namedParameterJdbcTemplate.query(SELECT_ALL, new DepartmentRowMapper());
+        return departmentList.stream();
+    }
+
+    @Override
+    public Stream<DepartmentStub> findAllStubs() {
+        LOGGER.debug("findAllStubs()");
+        List<DepartmentStub> departmentList =
+                namedParameterJdbcTemplate
+                        .query(SELECT_ALL_STUBS,
+                                (resultSet, i) -> new DepartmentStub()
+                                        .id(resultSet.getInt(DEPARTMENT_ID))
+                                        .name(resultSet.getString(DEPARTMENT_NAME))
+                                        .avgSalary(resultSet.getInt(AVG_SALARY)));
         return departmentList.stream();
     }
 
@@ -104,7 +123,7 @@ public class DepartmentDaoJdbcImpl implements DepartmentDao {
 
     @Override
     public void update(Department department) {
-         Optional.of(namedParameterJdbcTemplate.update(UPDATE, new BeanPropertySqlParameterSource(department)))
+        Optional.of(namedParameterJdbcTemplate.update(UPDATE, new BeanPropertySqlParameterSource(department)))
                 .filter(this::successfullyUpdated)
                 .orElseThrow(() -> new RuntimeException("Failed to update department in DB"));
     }
