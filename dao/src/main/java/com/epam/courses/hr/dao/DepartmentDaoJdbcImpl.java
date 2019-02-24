@@ -1,6 +1,6 @@
 package com.epam.courses.hr.dao;
 
-import com.epam.courses.hr.dto.DepartmentStub;
+import com.epam.courses.hr.stub.DepartmentStub;
 import com.epam.courses.hr.model.Department;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
