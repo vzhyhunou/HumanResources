@@ -26,7 +26,6 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    @Transactional
     public void add(Department... departments) {
         for (Department department : departments) {
             dao.addDepartment(department);
