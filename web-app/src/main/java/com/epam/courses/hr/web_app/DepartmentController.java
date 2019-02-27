@@ -72,6 +72,25 @@ public class DepartmentController {
      */
     @GetMapping(value = "/department")
     public final String gotoAddDepartmentPage(Model model) {
+
+        LOGGER.debug("create({})", model);
+        Department department = new Department();
+        model.addAttribute("isNew", true);
+        model.addAttribute("department", department);
         return "department";
+    }
+
+    /**
+     * Persist new department into persistence storage.
+     *
+     * @param department new department with filled data.
+     * @return view name
+     */
+    @PostMapping(value = "/department")
+    public String addDepartment(Department department) {
+
+        LOGGER.debug("create({})", department);
+        this.departmentService.add(department);
+        return "redirect:/departments";
     }
 }
