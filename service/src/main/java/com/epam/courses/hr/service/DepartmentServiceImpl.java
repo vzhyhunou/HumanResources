@@ -38,4 +38,17 @@ public class DepartmentServiceImpl implements DepartmentService{
             dao.addDepartment(department);
         }
     }
+
+    @Override
+    public Department findById(Integer id) {
+        LOGGER.debug("findById({})", id);
+        return dao.findById(id)
+                .orElseThrow(() -> new RuntimeException("Failed to get department from DB"));
+    }
+
+    @Override
+    public void update(Department department) {
+        LOGGER.debug("update({})", department);
+        dao.update(department);
+    }
 }

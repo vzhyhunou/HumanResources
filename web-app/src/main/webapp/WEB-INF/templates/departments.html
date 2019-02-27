@@ -80,7 +80,7 @@
                             <td th:text="${stub.avgSalary}">10000</td>
                             <td class="text-right">
                                 <a href="department.html"
-                                   th:href="@{/department}"
+                                   th:href="@{|/department/${stub.id}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit department"
                                    data-toggle="tooltip"

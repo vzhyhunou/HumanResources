@@ -12,9 +12,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath:test-service.xml"})
@@ -59,5 +60,19 @@ class DepartmentServiceImplTest {
         department.setDepartmentName("name");
         department.setDepartmentDescription("desc");
         return department;
+    }
+
+    @Test
+    void findById() {
+        // given
+        Optional<Department> firstDepartment = departmentService.findAll().findFirst();
+        assertTrue(firstDepartment.isPresent());
+        Integer id = firstDepartment.get().getDepartmentId();
+
+        // when
+        Department department = departmentService.findById(id);
+        assertNotNull(department);
+
+        assertEquals(firstDepartment.get().getDepartmentName(), department.getDepartmentName());
     }
 }
