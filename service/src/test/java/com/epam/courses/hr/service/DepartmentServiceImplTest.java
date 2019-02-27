@@ -1,7 +1,7 @@
 package com.epam.courses.hr.service;
 
-import com.epam.courses.hr.dao.DepartmentDao;
 import com.epam.courses.hr.model.Department;
+import com.epam.courses.hr.stub.DepartmentStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,9 +12,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath:test-service.xml"})
@@ -28,6 +29,12 @@ class DepartmentServiceImplTest {
     @Test
     void findAll() {
         Stream<Department> departments = departmentService.findAll();
+        assertNotNull(departments);
+    }
+
+    @Test
+    void findAllStubs() {
+        Stream<DepartmentStub> departments = departmentService.findAllStubs();
         assertNotNull(departments);
     }
 
@@ -53,5 +60,19 @@ class DepartmentServiceImplTest {
         department.setDepartmentName("name");
         department.setDepartmentDescription("desc");
         return department;
+    }
+
+    @Test
+    void findById() {
+        // given
+        Optional<Department> firstDepartment = departmentService.findAll().findFirst();
+        assertTrue(firstDepartment.isPresent());
+        Integer id = firstDepartment.get().getDepartmentId();
+
+        // when
+        Department department = departmentService.findById(id);
+        assertNotNull(department);
+
+        assertEquals(firstDepartment.get().getDepartmentName(), department.getDepartmentName());
     }
 }

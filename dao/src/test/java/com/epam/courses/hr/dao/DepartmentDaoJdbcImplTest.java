@@ -1,7 +1,7 @@
 package com.epam.courses.hr.dao;
 
-import com.epam.courses.hr.stub.DepartmentStub;
 import com.epam.courses.hr.model.Department;
+import com.epam.courses.hr.stub.DepartmentStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

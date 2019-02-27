@@ -12,9 +12,9 @@ Setup java 8 and Maven, see [enviroment_setup.md](enviroment_setup.md)
     
 ### build project 
 
-Goto Project folder    
+Goto Project folder and execute  
     
-    mvn clean verify
+    mvn clean install
 
 ### Server test
 
