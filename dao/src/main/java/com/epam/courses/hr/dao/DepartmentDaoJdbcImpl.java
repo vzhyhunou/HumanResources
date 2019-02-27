@@ -1,7 +1,7 @@
 package com.epam.courses.hr.dao;
 
-import com.epam.courses.hr.stub.DepartmentStub;
 import com.epam.courses.hr.model.Department;
+import com.epam.courses.hr.stub.DepartmentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

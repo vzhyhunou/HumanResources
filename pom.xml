@@ -50,7 +50,17 @@
             </dependency>
             <dependency>
                 <groupId>com.epam.courses.hr</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.courses.hr</groupId>
                 <artifactId>test-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.courses.hr</groupId>
+                <artifactId>web-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

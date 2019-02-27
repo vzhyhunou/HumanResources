@@ -2,6 +2,7 @@ package com.epam.courses.hr.service;
 
 import com.epam.courses.hr.dao.DepartmentDao;
 import com.epam.courses.hr.model.Department;
+import com.epam.courses.hr.stub.DepartmentStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,12 @@ public class DepartmentServiceImpl implements DepartmentService{
     public Stream<Department> findAll() {
         LOGGER.debug("Find all departments");
         return dao.findAll();
+    }
+
+    @Override
+    public Stream<DepartmentStub> findAllStubs() {
+        LOGGER.debug("Find all department stubs");
+        return dao.findAllStubs();
     }
 
     @Override

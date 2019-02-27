@@ -1,7 +1,7 @@
 package com.epam.courses.hr.service;
 
-import com.epam.courses.hr.dao.DepartmentDao;
 import com.epam.courses.hr.model.Department;
+import com.epam.courses.hr.stub.DepartmentStub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +28,12 @@ class DepartmentServiceImplTest {
     @Test
     void findAll() {
         Stream<Department> departments = departmentService.findAll();
+        assertNotNull(departments);
+    }
+
+    @Test
+    void findAllStubs() {
+        Stream<DepartmentStub> departments = departmentService.findAllStubs();
         assertNotNull(departments);
     }
 

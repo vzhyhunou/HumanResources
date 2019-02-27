@@ -19,4 +19,3 @@ public class HomeController {
         return "redirect:departments";
     }
 }
-
