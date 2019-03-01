@@ -37,4 +37,11 @@ public interface DepartmentService {
      * @param department department
      */
     void update(Department department);
+
+    /**
+     * Delete Department.
+     *
+     * @param id department id
+     */
+    void delete(int id);
 }
