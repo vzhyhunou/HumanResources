@@ -2,15 +2,18 @@ package com.epam.courses.hr.web_app;
 
 import com.epam.courses.hr.model.Department;
 import com.epam.courses.hr.service.DepartmentService;
+import com.epam.courses.hr.web_app.validators.DepartmentValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +26,9 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    DepartmentValidator departmentValidator;
 
     /**
      * Goto departments list page.
@@ -58,11 +64,17 @@ public class DepartmentController {
      * @return view name
      */
     @PostMapping(value = "/department/{id}")
-    public String updateDepartment(Department department) {
+    public String updateDepartment(@Valid Department department,
+                                   BindingResult result) {
 
-        LOGGER.debug("update({}, {})", department);
-        this.departmentService.update(department);
-        return "redirect:/departments";
+        LOGGER.debug("updateDepartment({}, {})", department, result);
+        departmentValidator.validate(department, result);
+        if (result.hasErrors()) {
+            return "department";
+        } else {
+            this.departmentService.update(department);
+            return "redirect:/departments";
+        }
     }
 
     /**
@@ -84,13 +96,32 @@ public class DepartmentController {
      * Persist new department into persistence storage.
      *
      * @param department new department with filled data.
+     * @param result     binding result.
      * @return view name
      */
     @PostMapping(value = "/department")
-    public String addDepartment(Department department) {
+    public String addDepartment(@Valid Department department,
+                                BindingResult result) {
 
-        LOGGER.debug("create({})", department);
-        this.departmentService.add(department);
+        LOGGER.debug("addDepartment({}, {})", department, result);
+        departmentValidator.validate(department, result);
+        if (result.hasErrors()) {
+            return "department";
+        } else {
+            this.departmentService.add(department);
+            return "redirect:/departments";
+        }
+    }
+
+    /**
+     * Delete department.
+     *
+     * @return view name
+     */
+    @GetMapping(value = "/department/{id}/delete")
+    public final String deleteDepartmentById(@PathVariable Integer id, Model model) {
+        LOGGER.debug("delete({},{})", id, model);
+        departmentService.delete(id);
         return "redirect:/departments";
     }
 }

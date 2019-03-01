@@ -18,7 +18,7 @@
           href="../../resources/static/img/logo.ico"
           th:href="@{/resources/static/img/logo.ico}"/>
 
-    <title>Edit department</title>
+    <title>Ooops..</title>
 </head>
 <body>
 
@@ -70,52 +70,14 @@
 </header>
 
 
-<section id="department">
+<section id="oops">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form id="departmentForm"
-                              th:object="${department}"
-                              action="departments.html"
-                              th:action="@{${#httpServletRequest.servletPath}}"
-                              th:method="@{post}">
-
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                <p>Please fix errors below:</p>
-                            </div>
-
-                            <input id="field_departmentId"
-                                   type="hidden"
-                                   th:field="*{departmentId}"/>
-
-                            <div class="form-group">
-                                <label class="form-control-label"
-                                       for="field_departmentName">Department Name</label>
-                                <input class="form-control "
-                                       th:class="${#fields.hasErrors('departmentName')} ? 'form-control is-invalid' : 'form-control'"
-                                       id="field_departmentName"
-                                       type="text" value="CEO"
-                                       th:field="*{departmentName}"/>
-                                <div th:if="${#fields.hasErrors('departmentName')}"
-                                     class="invalid-feedback"
-                                     th:errors="*{departmentName}">[errors]</div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label"
-                                       for="field_description">Description</label>
-                                <input class="form-control"
-                                       th:class="${#fields.hasErrors('departmentDescription')} ? 'form-control is-invalid' : 'form-control'"
-                                       id="field_description"
-                                       type="text"
-                                       value="CEO department"
-                                       th:field="*{departmentDescription}">
-                                <div th:if="${#fields.hasErrors('departmentDescription')}"
-                                     class="invalid-feedback"
-                                     th:errors="*{departmentDescription}">[errors]</div>
-                            </div>
-                        </form>
+                        <h2>Ooops. Something happened...</h2>
+                        <p th:text="${exception.message}">The exception message...</p>
                     </div>
                 </div>
             </div>
