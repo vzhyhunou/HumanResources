@@ -28,7 +28,6 @@ class DepartmentValidatorTest {
     void shouldRejectNullDepartmentName() {
         // given
         Mockito.when(department.getDepartmentName()).thenReturn(null);
-        BeanPropertyBindingResult result = new BeanPropertyBindingResult(department, "department");
 
         // when
         departmentValidator.validate(department, result);
