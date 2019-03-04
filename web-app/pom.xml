@@ -16,15 +16,24 @@
     <dependencies>
         <dependency>
             <groupId>com.epam.courses.hr</groupId>
+            <artifactId>test-db</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.hr</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.hr</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.hr</groupId>
             <artifactId>service</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <groupId>com.epam.courses.hr</groupId>
+            <artifactId>service</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -46,6 +55,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -58,6 +71,18 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
         </dependency>
     </dependencies>
 
